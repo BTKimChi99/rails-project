@@ -1,0 +1,35 @@
+<h3>Đơn hàng</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Mã</th>
+      <th>Khách</th>
+      <th>Tổng</th>
+      <th>Trạng thái</th>
+      <th>Shipper</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |o| %>
+      <tr>
+        <td><%= o.code %></td>
+        <td><%= o.customer_name %></td>
+        <td><%= number_to_currency(o.total_amount, unit: "₫", precision: 0) %></td>
+        <td><%= o.status %></td>
+        <td><%= o.assigned_shipper&.username || "-" %></td>
+        <td>
+          <% if o.pending? || o.assigned? %>
+            <%= form_with url: assign_admin_order_path(o), method: :patch, local: true, class: "form-inline" do |f| %>
+              <%= select_tag :shipper_id,
+                    options_from_collection_for_select(AdminUser.where(role: 0), :id, :username, o.assigned_to),
+                    class: "form-control form-control-sm" %>
+              <%= f.submit "Gán", class: "btn btn-sm btn-primary ml-2" %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

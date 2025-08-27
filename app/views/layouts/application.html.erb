@@ -18,11 +18,27 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <%= stylesheet_link_tag "flash", "data-turbo-track": "reload" %>
+
   </head>
 
   <body>
+    <% if flash[:notice] %>
+      <div id="flash-message" class="flash-notice">
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div id="flash-message" class="flash-alert">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <% excluded_paths = [login_path, register_path, new_password_reset_path] %>
+    <%= link_to "← Quay lại", request.referer || root_path, class: "btn btn-sm btn-light" unless excluded_paths.include?(request.path) %>
     <%= yield %>
   </body>
 </html>

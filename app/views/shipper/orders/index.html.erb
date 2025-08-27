@@ -1,0 +1,29 @@
+<h3>Đơn của tôi</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Mã</th>
+      <th>Khách</th>
+      <th>Tổng</th>
+      <th>Trạng thái</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |o| %>
+      <tr>
+        <td><%= o.code %></td>
+        <td><%= o.customer_name %></td>
+        <td><%= number_to_currency(o.total_amount, unit: "₫", precision: 0) %></td>
+        <td><%= o.status %></td>
+        <td>
+          <% if o.assigned? %>
+            <%= button_to "Bắt đầu giao", shipper_order_path(o, event: "start_delivery"), method: :put, class: "btn btn-sm btn-warning" %>
+          <% elsif o.delivering? %>
+            <%= button_to "Đã giao", shipper_order_path(o, event: "mark_delivered"), method: :put, class: "btn btn-sm btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

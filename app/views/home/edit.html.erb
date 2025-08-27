@@ -1,0 +1,16 @@
+<% content_for :rightbar do %>
+  <h2>Edit profile</h2>
+
+  <%= form_with model: @user, url: home_path, method: :patch, local: true do |form| %>
+    <div>
+      <%= form.label :email %><br>
+      <%= form.email_field :email %>
+    </div>
+
+    <div>
+      <%= form.submit "Save", class: "btn btn-success" %>
+      <%= link_to "Cancel", home_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+
+<% end %>

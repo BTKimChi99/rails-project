@@ -1,0 +1,29 @@
+.flash-notice,
+.flash-alert {
+    position: fixed;
+    top: -60px;
+    left: 80%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideFade 3s ease forwards;
+}
+
+.flash-notice {
+    background-color: #28a745;
+}
+
+.flash-alert {
+    background-color: #dc3545;
+}
+
+@keyframes slideFade {
+    0% { top: -60px; opacity: 0; }
+    10% { top: 20px; opacity: 1; }
+    90% { top: 20px; opacity: 1; }
+    100% { top: -60px; opacity: 0; }
+}

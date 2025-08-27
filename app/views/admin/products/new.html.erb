@@ -1,0 +1,18 @@
+<h1><%= action_name == 'new' ? 'Add product.' : 'Edit product.' %></h1>
+
+<%= form_with model: [:admin, @product] do |form| %>
+  <div>
+    <%= form.label :name, 'Name product' %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :price, 'Price' %><br>
+    <%= form.number_field :price %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+

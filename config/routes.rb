@@ -1,14 +1,42 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'home#index'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'home', to: 'home#index', as: :home
+  get 'home/edit', to: 'home#edit', as: :edit_home
+  patch 'home', to: 'home#update'
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get 'login', to: 'sessions#new', as: :login
+  post 'login', to: 'sessions#create'
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  delete 'logout', to: 'sessions#destroy', as: :logout
+
+  get 'register', to: 'registrations#new', as: :register
+  post 'register', to: 'registrations#create'
+
+  get 'password_resets/new', to: 'password_resets#new', as: :new_password_reset
+  post 'password_resets', to: 'password_resets#create', as: :password_resets
+  get 'password_resets/edit', to: 'password_resets#edit', as: :edit_password_reset
+  patch 'password_resets', to: 'password_resets#update'
+
+  namespace :admin do
+    root 'dashboard#index'
+    resources :products
+    resources :users, only: [:index, :edit, :update, :destroy]
+  end
+
+  namespace :admin do
+      resources :orders do
+        member do
+          patch :assign   # /admin/orders/:id/assign
+          patch :start_delivery
+          patch :mark_delivered
+          patch :cancel
+        end
+      end
+    end
+
+    namespace :shipper do
+      resources :orders, only: [:index, :show, :update]  # update để đổi trạng thái
+    end
+
 end

@@ -1,0 +1,34 @@
+<%= form_with model: @order, url: form_url, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :code %>
+    <%= f.text_field :code, class: "form-control" %>
+    <% @order.errors.full_messages_for(:code).each { |m| %><div class="text-danger"><%= m %></div><% } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :customer_name %>
+    <%= f.text_field :customer_name, class: "form-control" %>
+    <% @order.errors.full_messages_for(:customer_name).each { |m| %><div class="text-danger"><%= m %></div><% } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :customer_phone %>
+    <%= f.text_field :customer_phone, class: "form-control" %>
+    <% @order.errors.full_messages_for(:customer_phone).each { |m| %><div class="text-danger"><%= m %></div><% } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :customer_address %>
+    <%= f.text_area :customer_address, class: "form-control" %>
+    <% @order.errors.full_messages_for(:customer_address).each { |m| %><div class="text-danger"><%= m %></div><% } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :total_amount %>
+    <%= f.number_field :total_amount, step: "0.01", class: "form-control" %>
+    <% @order.errors.full_messages_for(:total_amount).each { |m| %><div class="text-danger"><%= m %></div><% } %>
+    <small class="text-muted">Tổng cuối (có phí ship): <%= number_to_currency(@order.final_total, unit: "₫", precision: 0) %></small>
+  </div>
+
+  <%= f.submit "Lưu", class: "btn btn-success" %>
+<% end %>

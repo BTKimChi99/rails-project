@@ -12,6 +12,8 @@ services:
 
   web:
     build: .
+    env_file:
+      - .env
     container_name: rails_app
     volumes:
       - .:/app

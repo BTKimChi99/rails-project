@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Admin</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+</head>
+<body>
+  <% if current_admin_user %>
+    <div style="text-align: right;">
+      Hello, <%= current_admin_user.email %> |
+      <%= link_to 'Logout', logout_path, method: :delete %>
+    </div>
+  <% else %>
+    <div style="text-align: right;">
+      <%= link_to 'Login', admin_login_path %> |
+      <%= link_to 'Register', admin_register_path %>
+    </div>
+  <% end %>
+
+  <header><h1>System administration</h1></header>
+  <%= yield %>
+</body>
+</html>

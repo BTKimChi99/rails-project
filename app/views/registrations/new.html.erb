@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Dashboard | Ruby on Rails</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Responsive bootstrap 4 admin template" name="description">
+        <meta content="Coderthemes" name="author">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <%= stylesheet_link_tag "application" %>
+        <%= stylesheet_link_tag "bootstrap.min" %>
+        <%= stylesheet_link_tag "icons.min" %>
+        <%= stylesheet_link_tag "app.min" %>
+        <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" %>
+    </head>
+
+    <body class="authentication-bg">
+        <div class="account-pages pt-3">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="account-card-box">
+                            <div class="card mb-0">
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <div class="my-3">
+                                            <a href="index.html">
+                                                <span><%= image_tag "connectionsInc.png", alt: "", style: "height: 100px" %></span>
+                                            </a>
+                                        </div>
+                                        <h5 class="text-muted text-uppercase py-3 font-16">Sign up</h5>
+                                    </div>
+                                    <%= form_with model: @user, url: register_path, local: true, html: { class: "mt-2" } do |form| %>
+
+                                        <div class="form-group mb-3">
+                                          <%= form.text_field :email, class: "form-control", required: true, placeholder: "Enter your email" %>
+                                          <% if @user.errors[:email].any? %>
+                                            <div class="text-danger">
+                                              <%= @user.errors[:email].first %>
+                                            </div>
+                                          <% end %>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <%= form.text_field :username, class: "form-control", required: true, placeholder: "Enter your username" %>
+                                            <% @user.errors.full_messages_for(:username).each do |msg| %>
+                                              <div class="text-danger"><%= msg %></div>
+                                            <% end %>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                          <%= form.password_field :password, class: "form-control", required: true, placeholder: "Enter your password" %>
+                                          <% if @user.errors[:password].any? %>
+                                            <div class="text-danger"><%= @user.errors[:password].first %></div>
+                                          <% end %>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                          <%= form.password_field :password_confirmation, class: "form-control", required: true, placeholder: "Enter confirm password" %>
+                                          <% if @user.errors[:password_confirmation].any? %>
+                                            <div class="text-danger"><%= @user.errors[:password_confirmation].first %></div>
+                                          <% end %>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <%= form.file_field :avatar %>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="checkbox-signup" checked="">
+                                                <label class="custom-control-label" for="checkbox-signup">I accept <a href="#">Terms and Conditions</a></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <button class="btn btn-success btn-block waves-effect waves-light" type="submit"> Join Now </button>
+                                        </div>
+                                    <% end %>
+                                    <div class="text-center mt-4">
+                                        <h5 class="text-muted py-2"><b>Sign up with</b></h5>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-facebook waves-effect font-14 waves-light mt-3">
+                                                    <i class="fab fa-facebook-f mr-1"></i> Facebook
+                                                </button>
+                                                <button type="button" class="btn btn-twitter waves-effect font-14 waves-light mt-3">
+                                                    <i class="fab fa-twitter mr-1"></i> Twitter
+                                                </button>
+                                                <button type="button" class="btn btn-googleplus waves-effect font-14 waves-light mt-3">
+                                                    <i class="fab fa-google-plus-g mr-1"></i> Google+
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <p class="text-white-50">
+                                    Already have account?
+                                    <%= link_to content_tag(:b, "Sign In"), login_path, class: "text-white ml-1" %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%= javascript_include_tag "vendor.min" %>
+        <%= javascript_include_tag "app.min" %>
+        <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    </body>
+</html>
