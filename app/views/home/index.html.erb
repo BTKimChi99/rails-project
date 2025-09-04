@@ -4,11 +4,6 @@
             <div class="row">
                 <% if current_admin_user %>
                     <p class="mb-3">This is your account information page!</p>
-                    <% if @user.role == 1 %>
-                      <p>
-                        <%= link_to "Access to the management page", admin_root_path %>
-                      </p>
-                    <% end %>
                 <% else %>
                     <p>
                       <%= link_to "Login", login_path %> or
@@ -47,4 +42,4 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
