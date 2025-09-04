@@ -1,6 +1,6 @@
 class Admin::OrdersController < ApplicationController
     layout "main"
-  before_action :require_admin!  # tự viết theo hệ thống của bạn
+  before_action :require_admin!
   before_action :set_order, only: [:show, :edit, :update, :destroy, :assign, :start_delivery, :mark_delivered, :cancel]
 
   def index

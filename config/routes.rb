@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   namespace :admin do
       resources :orders do
         member do
-          patch :assign   # /admin/orders/:id/assign
+          patch :assign
           patch :start_delivery
           patch :mark_delivered
           patch :cancel
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
 
     namespace :shipper do
-      resources :orders, only: [:index, :show, :update]  # update để đổi trạng thái
+      resources :orders, only: [:index, :show, :update]
     end
 
 end
