@@ -1,33 +1,63 @@
-<h2>User management</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Avatar</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.email %></td>
-        <td><%= user.role == 1 ? "Admin" : "User" %></td>
-        <td>
-          <% if user.avatar.attached? %>
-            <%= image_tag user.avatar.variant(resize_to_limit: [50, 50]) %>
-          <% else %>
-            No avatar
-          <% end %>
-        </td>
-        <td>
-          <%= link_to "Edit", edit_admin_user_path(user) %> |
-          <%= link_to "Delete", admin_user_path(user), method: :delete, data: { confirm: "Are you sure?" } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="content-page" style="margin-left: 0;">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <% if current_admin_user %>
+                    <p class="mb-3">This page contains the account information for all employees!</p>
+                <% else %>
+                    <p>
+                      <%= link_to "Login", login_path %> or
+                      <%= link_to "Register", register_path %>
+                    </p>
+                <% end %>
+            </div>
+            <div class="row">
+                <h4 class="header-title mb-3">Detailed information</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-nowrap mb-0">
+                        <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Username</th>
+                              <th>Email</th>
+                              <th>Role</th>
+                              <th>Avatar</th>
+                              <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <% @users.each do |user| %>
+                                <tr>
+                                  <td><%= user.id %></td>
+                                  <td><%= user.username %></td>
+                                  <td><%= user.email %></td>
+                                  <td><%= user.role == 1 ? "Admin" : "User" %></td>
+                                  <td>
+                                    <% if user.avatar.attached? %>
+                                      <%= image_tag user.avatar.variant(resize_to_limit: [50, 50]) %>
+                                    <% else %>
+                                      No avatar
+                                    <% end %>
+                                  </td>
+                                  <td>
+                                    <%= link_to edit_admin_user_path(user), class: "badge badge-success" do %>
+                                      Edit
+                                    <% end %>
+                                    <%= link_to admin_user_path(user),
+                                      method: :delete,
+                                      data: { confirm: "Are you sure?" },
+                                      class: "badge badge-danger" do %>
+                                        Delete
+                                    <% end %>
+                                  </td>
+                                </tr>
+                              <% end %>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

@@ -1,30 +1,85 @@
-<h1>List products</h1>
-<%= link_to 'Add product new.', new_admin_product_path %>
+# <h1>List products</h1>
+# <%= link_to 'Add product new.', new_admin_product_path %>
+#
+# <% if @products.any? %>
+#   <table>
+#       <thead>
+#           <tr>
+#               <th>Name</th>
+#               <th>Price</th>
+#               <th></th>
+#           </tr>
+#       </thead>
+#       <tbody>
+#           <% @products.each do |product| %>
+#               <tr>
+#                   <td><%= product.name %></td>
+#                   <td><%= number_to_currency(product.price, unit: "$") %></td>
+#                   <td>
+#                       <%= link_to 'View', admin_product_path(product) %> |
+#                       <%= link_to 'Edit', edit_admin_product_path(product) %> |
+#                       <%= link_to 'Delete', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %>
+#                   </td>
+#               </tr>
+#           <% end %>
+#       </tbody>
+#   </table>
+# <% else %>
+#   <p>No products found.</p>
+# <% end %>
 
-<% if @products.any? %>
-  <table>
-      <thead>
-          <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th></th>
-          </tr>
-      </thead>
-      <tbody>
-          <% @products.each do |product| %>
-              <tr>
-                  <td><%= product.name %></td>
-                  <td><%= number_to_currency(product.price, unit: "$") %></td>
-                  <td>
-                      <%= link_to 'View', admin_product_path(product) %> |
-                      <%= link_to 'Edit', edit_admin_product_path(product) %> |
-                      <%= link_to 'Delete', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %>
-                  </td>
-              </tr>
-          <% end %>
-      </tbody>
-  </table>
-<% else %>
-  <p>No products found.</p>
-<% end %>
-
+  <div class="content-page" style="margin-left: 0;">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <% if current_admin_user %>
+                    <p class="mb-3">This page contains information about all orders!</p>
+                <% else %>
+                    <p>
+                      <%= link_to "Login", login_path %> or
+                      <%= link_to "Register", register_path %>
+                    </p>
+                <% end %>
+            </div>
+            <div class="row">
+                <h4 class="header-title mb-3">Detailed information</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-nowrap mb-0">
+                        <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Order code</th>
+                              <th>Customer name</th>
+                              <th>Customer phone</th>
+                              <th>Customer address</th>
+                              <th>Total amount</th>
+                              <th>Status</th>
+                              <th>Delivery person</th>
+                              <th>Order creation time</th>
+                              <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <% @orders.each do |order| %>
+                                <tr>
+                                  <td><%= order.id %></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                </tr>
+                              <% end %>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
